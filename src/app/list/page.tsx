@@ -3,3 +3,5 @@ const ListPage = () => {
     <div className=''>ListPage</div>
   )
 }
+
+export default ListPage
