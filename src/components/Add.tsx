@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 
-const Add = () => {
-  const [quantity, setQuantity] = useState(1);
+interface addProps {
+  productId: string;
+  variantId: string;
+  stockNumber: number;
+}
 
-  // TEMPORARY
-  const stock = 4;
+const Add = ({ productId, variantId, stockNumber }: addProps) => {
+  const [quantity, setQuantity] = useState(1);
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (type === "i" && quantity < 4) {
+    if (type === "i" && quantity < stockNumber) {
       setQuantity((prev) => prev + 1);
     }
   };
@@ -38,8 +41,8 @@ const Add = () => {
             </button>
           </div>
           <div>
-            Only <span className="text-orange-500">4 items</span> left! <br />{" "}
-            {"Don't"} miss it
+            Only <span className="text-orange-500">{stockNumber} items</span>{" "}
+            left! <br /> {"Don't"} miss it
           </div>
         </div>
         <button
