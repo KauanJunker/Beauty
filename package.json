@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@wix/ecom": "^1.0.685",
     "@wix/sdk": "^1.12.9",
     "@wix/stores": "^1.0.169",
     "isomorphic-dompurify": "^2.14.0",

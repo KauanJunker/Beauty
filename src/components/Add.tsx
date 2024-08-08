@@ -1,5 +1,6 @@
 "use client";
 
+import { useWixClient } from "@/hooks/useWixClient";
 import { useState } from "react";
 
 interface addProps {
@@ -10,6 +11,7 @@ interface addProps {
 
 const Add = ({ productId, variantId, stockNumber }: addProps) => {
   const [quantity, setQuantity] = useState(1);
+  const wixClient = useWixClient();
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
@@ -18,6 +20,21 @@ const Add = ({ productId, variantId, stockNumber }: addProps) => {
     if (type === "i" && quantity < stockNumber) {
       setQuantity((prev) => prev + 1);
     }
+  };
+
+  const addItem = async () => {
+    const response = await wixClient.currentCart.addToCurrentCart({
+      lineItems: [
+        {
+          catalogReference: {
+            appId: process.env.NEXT_PUBLIC_WIX_APP_ID!,
+            catalogItemId: productId,
+            ...(variantId && { options: { variantId } }),
+          },
+          quantity: quantity,
+        },
+      ],
+    });
   };
 
   return (
@@ -50,6 +67,7 @@ const Add = ({ productId, variantId, stockNumber }: addProps) => {
           )}
         </div>
         <button
+          onClick={addItem}
           className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-2 hover:bg-lama 
       hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
         >
