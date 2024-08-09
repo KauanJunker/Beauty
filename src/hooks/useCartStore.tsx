@@ -2,8 +2,10 @@ import { create } from "zustand";
 import { currentCart } from "@wix/ecom";
 import { WixCliente } from "@/context/wixContext";
 
+interface myCart extends currentCart.Cart, currentCart.CartNonNullableFields {}
+
 type CartState = {
-  cart: currentCart.Cart;
+  cart: myCart;
   isLoading: boolean;
   counter: number;
   getCart: (wixClient: WixCliente) => void;
