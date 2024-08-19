@@ -2,12 +2,11 @@ import { create } from "zustand";
 import { currentCart } from "@wix/ecom";
 import { WixCliente } from "@/context/wixContext";
 
-interface myCart extends currentCart.Cart, currentCart.CartNonNullableFields {}
-
 type CartState = {
-  cart: myCart;
+  cart: currentCart.Cart;
   isLoading: boolean;
   counter: number;
+  subtotal: number;
   getCart: (wixClient: WixCliente) => void;
   addItem: (
     wixClient: WixCliente,
@@ -22,8 +21,11 @@ export const useCartStore = create<CartState>((set) => ({
   cart: [],
   isLoading: true,
   counter: 0,
+  subtotal: 0,
   getCart: async (wixClient) => {
     const cart = await wixClient.currentCart.getCurrentCart();
+    // const subtotal = calculateSubtotal(cart);
+
     set({
       cart: cart || [],
       isLoading: false,
@@ -49,6 +51,7 @@ export const useCartStore = create<CartState>((set) => ({
       cart: response.cart,
       counter: response.cart?.lineItems.length,
       isLoading: false,
+      subtotal: Number(response.cart?.subtotal?.amount),
     });
   },
   removeItem: async (wixClient, itemId) => {
@@ -61,6 +64,7 @@ export const useCartStore = create<CartState>((set) => ({
       cart: response.cart,
       counter: response.cart?.lineItems.length,
       isLoading: false,
+      subtotal: Number(response.cart?.subtotal?.amount),
     });
   },
 }));

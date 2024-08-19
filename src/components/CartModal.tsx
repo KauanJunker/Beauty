@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { media as wixMedia } from "@wix/sdk";
 
 const CartModal = () => {
-  const { cart, isLoading, removeItem } = useCartStore();
+  const { cart, isLoading, removeItem, subtotal } = useCartStore();
   const wixClient = useWixClient();
   console.log(cart);
 
@@ -81,7 +81,7 @@ const CartModal = () => {
           <div>
             <div className="flex items-center justify-between font-semibold">
               <span>Subtotal</span>
-              <span>${cart.subtotal?.amount}</span>
+              <span>${subtotal}</span>
             </div>
             <p className="text-gray-500 text-sm mt-2 mb-4">
               Lorem, ipsum dolor sit amet!
