@@ -86,7 +86,7 @@ const CartModal = () => {
             <p className="text-gray-500 text-sm mt-2 mb-4">
               Lorem, ipsum dolor sit amet!
             </p>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm gap-5">
               <button className="rounded-md py-3 px-4 ring-1 ring-gray-300">
                 View Cart
               </button>
